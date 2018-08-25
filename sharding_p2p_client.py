@@ -2,8 +2,9 @@ import functools
 
 import grpc
 
-import rpc_pb2
-import rpc_pb2_grpc
+import github.com.ethresearch.sharding_p2p_poc.pb.message.message_pb2 as message_pb2
+import github.com.ethresearch.sharding_p2p_poc.pb.rpc.rpc_pb2 as rpc_pb2
+import github.com.ethresearch.sharding_p2p_poc.pb.rpc.rpc_pb2_grpc as rpc_pb2_grpc
 
 
 REMOTE_IP = "127.0.0.1"
@@ -49,6 +50,9 @@ class MockRPCStub:
         return response
 
     def BroadcastCollation(self, req):
+        return self._make_empty_success_response()
+
+    def SendCollation(self, req):
         return self._make_empty_success_response()
 
     def StopServer(self, req):
@@ -110,6 +114,19 @@ class ShardingP2PController:
         throw_if_not_success(response, broadcastcollation_req)
         return response.response.message
 
+    def send_collation(self, shard_id, period, blobs):
+        collation_msg = message_pb2.Collation(
+            shardID=shard_id,
+            period=period,
+            blobs=blobs,
+        )
+        sendcollation_req = rpc_pb2.RPCSendCollationRequest(
+            collation=collation_msg,
+        )
+        response = self.stub.SendCollation(sendcollation_req)
+        throw_if_not_success(response, sendcollation_req)
+        return response.response.message
+
     def stop_server(self):
         stopserver_req = rpc_pb2.RPCStopServerRequest()
         response = self.stub.StopServer(stopserver_req)
@@ -132,5 +149,6 @@ print(ch.get_subscribed_shards())
 print(ch.unsubscribe_shards([40]))
 print(ch.get_subscribed_shards())
 print(ch.broadcast_collation(40, 10, 5566, 100))
+print(ch.send_collation(40, 1, b'123'))
 # print(ch.stop_server())
 
