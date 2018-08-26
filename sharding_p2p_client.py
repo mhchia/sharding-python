@@ -148,7 +148,7 @@ print(ch.subscribe_shards([40, 56]))  # RPC should fail when subscribing an inva
 print(ch.get_subscribed_shards())
 print(ch.unsubscribe_shards([40]))
 print(ch.get_subscribed_shards())
-print(ch.broadcast_collation(40, 10, 5566, 100))
-print(ch.send_collation(40, 1, b'123'))
+print(ch.broadcast_collation(56, 10, 5566, 100))
+print(ch.send_collation(56, 1, b'123'))
 # print(ch.stop_server())
 
