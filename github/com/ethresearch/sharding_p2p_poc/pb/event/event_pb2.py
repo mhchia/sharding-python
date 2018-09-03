@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='github.com/ethresearch/sharding-p2p-poc/pb/event/event.proto',
   package='proto.event',
   syntax='proto3',
-  serialized_pb=_b('\n<github.com/ethresearch/sharding-p2p-poc/pb/event/event.proto\x12\x0bproto.event\x1a@github.com/ethresearch/sharding-p2p-poc/pb/message/message.proto\"\t\n\x07MetaMsg\"j\n\x14NewCollationNotifier\x12%\n\x07metaMsg\x18\x01 \x01(\x0b\x32\x14.proto.event.MetaMsg\x12+\n\tcollation\x18\x02 \x01(\x0b\x32\x18.proto.message.Collation\"P\n\x14NewCollationResponse\x12\'\n\x08response\x18\x01 \x01(\x0b\x32\x15.proto.event.Response\x12\x0f\n\x07isValid\x18\x02 \x01(\x08\"\\\n\x08Response\x12,\n\x06status\x18\x01 \x01(\x0e\x32\x1c.proto.event.Response.Status\"\"\n\x06Status\x12\x0b\n\x07SUCCESS\x10\x00\x12\x0b\n\x07\x46\x41ILURE\x10\x01\x32_\n\x05\x45vent\x12V\n\x0cNewCollation\x12!.proto.event.NewCollationNotifier\x1a!.proto.event.NewCollationResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n<github.com/ethresearch/sharding-p2p-poc/pb/event/event.proto\x12\x0bproto.event\x1a@github.com/ethresearch/sharding-p2p-poc/pb/message/message.proto\"\t\n\x07MetaMsg\"l\n\x16NotifyCollationRequest\x12%\n\x07metaMsg\x18\x01 \x01(\x0b\x32\x14.proto.event.MetaMsg\x12+\n\tcollation\x18\x02 \x01(\x0b\x32\x18.proto.message.Collation\"S\n\x17NotifyCollationResponse\x12\'\n\x08response\x18\x01 \x01(\x0b\x32\x15.proto.event.Response\x12\x0f\n\x07isValid\x18\x02 \x01(\x08\"k\n\x13GetCollationRequest\x12%\n\x07metaMsg\x18\x01 \x01(\x0b\x32\x14.proto.event.MetaMsg\x12\x0f\n\x07shardID\x18\x02 \x01(\x03\x12\x0e\n\x06period\x18\x03 \x01(\x03\x12\x0c\n\x04hash\x18\x04 \x01(\t\"}\n\x14GetCollationResponse\x12\'\n\x08response\x18\x01 \x01(\x0b\x32\x15.proto.event.Response\x12\x0f\n\x07isFound\x18\x02 \x01(\x08\x12+\n\tcollation\x18\x03 \x01(\x0b\x32\x18.proto.message.Collation\"\\\n\x08Response\x12,\n\x06status\x18\x01 \x01(\x0e\x32\x1c.proto.event.Response.Status\"\"\n\x06Status\x12\x0b\n\x07SUCCESS\x10\x00\x12\x0b\n\x07\x46\x41ILURE\x10\x01\x32\xbe\x01\n\x05\x45vent\x12^\n\x0fNotifyCollation\x12#.proto.event.NotifyCollationRequest\x1a$.proto.event.NotifyCollationResponse\"\x00\x12U\n\x0cGetCollation\x12 .proto.event.GetCollationRequest\x1a!.proto.event.GetCollationResponse\"\x00\x62\x06proto3')
   ,
   dependencies=[github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_message_dot_message__pb2.DESCRIPTOR,])
 
@@ -43,8 +43,8 @@ _RESPONSE_STATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=402,
-  serialized_end=436,
+  serialized_start=643,
+  serialized_end=677,
 )
 _sym_db.RegisterEnumDescriptor(_RESPONSE_STATUS)
 
@@ -73,22 +73,22 @@ _METAMSG = _descriptor.Descriptor(
 )
 
 
-_NEWCOLLATIONNOTIFIER = _descriptor.Descriptor(
-  name='NewCollationNotifier',
-  full_name='proto.event.NewCollationNotifier',
+_NOTIFYCOLLATIONREQUEST = _descriptor.Descriptor(
+  name='NotifyCollationRequest',
+  full_name='proto.event.NotifyCollationRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='metaMsg', full_name='proto.event.NewCollationNotifier.metaMsg', index=0,
+      name='metaMsg', full_name='proto.event.NotifyCollationRequest.metaMsg', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='collation', full_name='proto.event.NewCollationNotifier.collation', index=1,
+      name='collation', full_name='proto.event.NotifyCollationRequest.collation', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -107,26 +107,26 @@ _NEWCOLLATIONNOTIFIER = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=154,
-  serialized_end=260,
+  serialized_end=262,
 )
 
 
-_NEWCOLLATIONRESPONSE = _descriptor.Descriptor(
-  name='NewCollationResponse',
-  full_name='proto.event.NewCollationResponse',
+_NOTIFYCOLLATIONRESPONSE = _descriptor.Descriptor(
+  name='NotifyCollationResponse',
+  full_name='proto.event.NotifyCollationResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='response', full_name='proto.event.NewCollationResponse.response', index=0,
+      name='response', full_name='proto.event.NotifyCollationResponse.response', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='isValid', full_name='proto.event.NewCollationResponse.isValid', index=1,
+      name='isValid', full_name='proto.event.NotifyCollationResponse.isValid', index=1,
       number=2, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -144,8 +144,105 @@ _NEWCOLLATIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=262,
-  serialized_end=342,
+  serialized_start=264,
+  serialized_end=347,
+)
+
+
+_GETCOLLATIONREQUEST = _descriptor.Descriptor(
+  name='GetCollationRequest',
+  full_name='proto.event.GetCollationRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='metaMsg', full_name='proto.event.GetCollationRequest.metaMsg', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='shardID', full_name='proto.event.GetCollationRequest.shardID', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='period', full_name='proto.event.GetCollationRequest.period', index=2,
+      number=3, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='hash', full_name='proto.event.GetCollationRequest.hash', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=349,
+  serialized_end=456,
+)
+
+
+_GETCOLLATIONRESPONSE = _descriptor.Descriptor(
+  name='GetCollationResponse',
+  full_name='proto.event.GetCollationResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='response', full_name='proto.event.GetCollationResponse.response', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='isFound', full_name='proto.event.GetCollationResponse.isFound', index=1,
+      number=2, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='collation', full_name='proto.event.GetCollationResponse.collation', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=458,
+  serialized_end=583,
 )
 
 
@@ -176,18 +273,23 @@ _RESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=344,
-  serialized_end=436,
+  serialized_start=585,
+  serialized_end=677,
 )
 
-_NEWCOLLATIONNOTIFIER.fields_by_name['metaMsg'].message_type = _METAMSG
-_NEWCOLLATIONNOTIFIER.fields_by_name['collation'].message_type = github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_message_dot_message__pb2._COLLATION
-_NEWCOLLATIONRESPONSE.fields_by_name['response'].message_type = _RESPONSE
+_NOTIFYCOLLATIONREQUEST.fields_by_name['metaMsg'].message_type = _METAMSG
+_NOTIFYCOLLATIONREQUEST.fields_by_name['collation'].message_type = github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_message_dot_message__pb2._COLLATION
+_NOTIFYCOLLATIONRESPONSE.fields_by_name['response'].message_type = _RESPONSE
+_GETCOLLATIONREQUEST.fields_by_name['metaMsg'].message_type = _METAMSG
+_GETCOLLATIONRESPONSE.fields_by_name['response'].message_type = _RESPONSE
+_GETCOLLATIONRESPONSE.fields_by_name['collation'].message_type = github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_message_dot_message__pb2._COLLATION
 _RESPONSE.fields_by_name['status'].enum_type = _RESPONSE_STATUS
 _RESPONSE_STATUS.containing_type = _RESPONSE
 DESCRIPTOR.message_types_by_name['MetaMsg'] = _METAMSG
-DESCRIPTOR.message_types_by_name['NewCollationNotifier'] = _NEWCOLLATIONNOTIFIER
-DESCRIPTOR.message_types_by_name['NewCollationResponse'] = _NEWCOLLATIONRESPONSE
+DESCRIPTOR.message_types_by_name['NotifyCollationRequest'] = _NOTIFYCOLLATIONREQUEST
+DESCRIPTOR.message_types_by_name['NotifyCollationResponse'] = _NOTIFYCOLLATIONRESPONSE
+DESCRIPTOR.message_types_by_name['GetCollationRequest'] = _GETCOLLATIONREQUEST
+DESCRIPTOR.message_types_by_name['GetCollationResponse'] = _GETCOLLATIONRESPONSE
 DESCRIPTOR.message_types_by_name['Response'] = _RESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -198,19 +300,33 @@ MetaMsg = _reflection.GeneratedProtocolMessageType('MetaMsg', (_message.Message,
   ))
 _sym_db.RegisterMessage(MetaMsg)
 
-NewCollationNotifier = _reflection.GeneratedProtocolMessageType('NewCollationNotifier', (_message.Message,), dict(
-  DESCRIPTOR = _NEWCOLLATIONNOTIFIER,
+NotifyCollationRequest = _reflection.GeneratedProtocolMessageType('NotifyCollationRequest', (_message.Message,), dict(
+  DESCRIPTOR = _NOTIFYCOLLATIONREQUEST,
   __module__ = 'github.com.ethresearch.sharding_p2p_poc.pb.event.event_pb2'
-  # @@protoc_insertion_point(class_scope:proto.event.NewCollationNotifier)
+  # @@protoc_insertion_point(class_scope:proto.event.NotifyCollationRequest)
   ))
-_sym_db.RegisterMessage(NewCollationNotifier)
+_sym_db.RegisterMessage(NotifyCollationRequest)
 
-NewCollationResponse = _reflection.GeneratedProtocolMessageType('NewCollationResponse', (_message.Message,), dict(
-  DESCRIPTOR = _NEWCOLLATIONRESPONSE,
+NotifyCollationResponse = _reflection.GeneratedProtocolMessageType('NotifyCollationResponse', (_message.Message,), dict(
+  DESCRIPTOR = _NOTIFYCOLLATIONRESPONSE,
   __module__ = 'github.com.ethresearch.sharding_p2p_poc.pb.event.event_pb2'
-  # @@protoc_insertion_point(class_scope:proto.event.NewCollationResponse)
+  # @@protoc_insertion_point(class_scope:proto.event.NotifyCollationResponse)
   ))
-_sym_db.RegisterMessage(NewCollationResponse)
+_sym_db.RegisterMessage(NotifyCollationResponse)
+
+GetCollationRequest = _reflection.GeneratedProtocolMessageType('GetCollationRequest', (_message.Message,), dict(
+  DESCRIPTOR = _GETCOLLATIONREQUEST,
+  __module__ = 'github.com.ethresearch.sharding_p2p_poc.pb.event.event_pb2'
+  # @@protoc_insertion_point(class_scope:proto.event.GetCollationRequest)
+  ))
+_sym_db.RegisterMessage(GetCollationRequest)
+
+GetCollationResponse = _reflection.GeneratedProtocolMessageType('GetCollationResponse', (_message.Message,), dict(
+  DESCRIPTOR = _GETCOLLATIONRESPONSE,
+  __module__ = 'github.com.ethresearch.sharding_p2p_poc.pb.event.event_pb2'
+  # @@protoc_insertion_point(class_scope:proto.event.GetCollationResponse)
+  ))
+_sym_db.RegisterMessage(GetCollationResponse)
 
 Response = _reflection.GeneratedProtocolMessageType('Response', (_message.Message,), dict(
   DESCRIPTOR = _RESPONSE,
@@ -227,16 +343,25 @@ _EVENT = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=438,
-  serialized_end=533,
+  serialized_start=680,
+  serialized_end=870,
   methods=[
   _descriptor.MethodDescriptor(
-    name='NewCollation',
-    full_name='proto.event.Event.NewCollation',
+    name='NotifyCollation',
+    full_name='proto.event.Event.NotifyCollation',
     index=0,
     containing_service=None,
-    input_type=_NEWCOLLATIONNOTIFIER,
-    output_type=_NEWCOLLATIONRESPONSE,
+    input_type=_NOTIFYCOLLATIONREQUEST,
+    output_type=_NOTIFYCOLLATIONRESPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetCollation',
+    full_name='proto.event.Event.GetCollation',
+    index=1,
+    containing_service=None,
+    input_type=_GETCOLLATIONREQUEST,
+    output_type=_GETCOLLATIONRESPONSE,
     options=None,
   ),
 ])

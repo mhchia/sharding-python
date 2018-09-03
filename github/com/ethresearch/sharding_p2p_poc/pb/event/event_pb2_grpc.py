@@ -14,10 +14,15 @@ class EventStub(object):
     Args:
       channel: A grpc.Channel.
     """
-    self.NewCollation = channel.unary_unary(
-        '/proto.event.Event/NewCollation',
-        request_serializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.NewCollationNotifier.SerializeToString,
-        response_deserializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.NewCollationResponse.FromString,
+    self.NotifyCollation = channel.unary_unary(
+        '/proto.event.Event/NotifyCollation',
+        request_serializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.NotifyCollationRequest.SerializeToString,
+        response_deserializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.NotifyCollationResponse.FromString,
+        )
+    self.GetCollation = channel.unary_unary(
+        '/proto.event.Event/GetCollation',
+        request_serializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.GetCollationRequest.SerializeToString,
+        response_deserializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.GetCollationResponse.FromString,
         )
 
 
@@ -25,9 +30,16 @@ class EventServicer(object):
   # missing associated documentation comment in .proto file
   pass
 
-  def NewCollation(self, request, context):
+  def NotifyCollation(self, request, context):
     """Sends a greeting
     """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def GetCollation(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
@@ -35,10 +47,15 @@ class EventServicer(object):
 
 def add_EventServicer_to_server(servicer, server):
   rpc_method_handlers = {
-      'NewCollation': grpc.unary_unary_rpc_method_handler(
-          servicer.NewCollation,
-          request_deserializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.NewCollationNotifier.FromString,
-          response_serializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.NewCollationResponse.SerializeToString,
+      'NotifyCollation': grpc.unary_unary_rpc_method_handler(
+          servicer.NotifyCollation,
+          request_deserializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.NotifyCollationRequest.FromString,
+          response_serializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.NotifyCollationResponse.SerializeToString,
+      ),
+      'GetCollation': grpc.unary_unary_rpc_method_handler(
+          servicer.GetCollation,
+          request_deserializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.GetCollationRequest.FromString,
+          response_serializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.GetCollationResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

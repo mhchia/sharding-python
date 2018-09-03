@@ -1,4 +1,5 @@
 from concurrent import futures
+import functools
 import sys
 import time
 
@@ -11,7 +12,7 @@ import github.com.ethresearch.sharding_p2p_poc.pb.message.message_pb2 as message
 
 LISTEN_IP = "127.0.0.1"
 REMOTE_IP = "127.0.0.1"
-EVENT_RPC_PORT = 15000
+EVENT_RPC_PORT = 35566
 
 
 def make_response(status):
@@ -28,20 +29,38 @@ class EventServicer(event_pb2_grpc.EventServicer):
     def __init__(self):
         pass
 
-    def NewCollation(self, request, context):
-        print("!@# receive request={}".format(request))
+    def NotifyCollation(self, request, context):
         validity = True
         response = make_response(True)  # Request succeeded
-        collation_response = event_pb2.NewCollationResponse(
+        notifycollation_response = event_pb2.NotifyCollationResponse(
             response=response,
             isValid=validity,
         )
-        return collation_response
+        print("NotifyCollation: request={}, response={}".format(request, notifycollation_response))
+        return notifycollation_response
+
+    def GetCollation(self, request, context):
+        response = make_response(True)  # Request succeeded
+        collation = message_pb2.Collation(
+            shardID=request.shardID,
+            period=request.period,
+            blobs="getcollation: shardID={}, period={}".format(
+                request.shardID,
+                request.period,
+            ).encode(),
+        )
+        getcollation_response = event_pb2.GetCollationResponse(
+            response=response,
+            collation=collation,
+            isFound=True,
+        )
+        print("GetCollation: request={}, response={}".format(request, getcollation_response))
+        return getcollation_response
 
 
 def run_event_servicer():
     # TODO: should confirm how many workers to use
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     event_pb2_grpc.add_EventServicer_to_server(
         EventServicer(),
         server,
@@ -49,6 +68,7 @@ def run_event_servicer():
     listen_addr = '{}:{}'.format(REMOTE_IP, EVENT_RPC_PORT)
     server.add_insecure_port(listen_addr)
     server.start()
+    print("Server started")
     try:
         while True:
             time.sleep(86400)
@@ -62,7 +82,7 @@ def make_event_stub():
     return event_pb2_grpc.EventStub(channel)
 
 
-def send_event_new_collation():
+def send_notify_collation():
     """This function is used to test whether the servicer works
     """
     stub = make_event_stub()
@@ -71,10 +91,22 @@ def send_event_new_collation():
         period=42,
         blobs=b"123",
     )
-    new_collation_notifier = event_pb2.NewCollationNotifier(
+    notifycollationRequqest = event_pb2.NotifyCollationRequest(
         collation=collation,
     )
-    stub.NewCollation(new_collation_notifier)
+    stub.NotifyCollation(notifycollationRequqest)
+
+
+def send_get_collation():
+    """This function is used to test whether the servicer works
+    """
+    stub = make_event_stub()
+    getcollation_request = event_pb2.GetCollationRequest(
+        shardID=1,
+        period=2,
+        hash="abc",
+    )
+    stub.GetCollation(getcollation_request)
 
 
 if __name__ == "__main__":
@@ -83,8 +115,12 @@ if __name__ == "__main__":
     mode = sys.argv[1]
     if mode == "server":
         run_event_servicer()
+    elif mode == "notifycollation":
+        send_notify_collation()
+    elif mode == "getcollation":
+        send_get_collation()
     else:
-        send_event_new_collation()
+        raise ValueError("Wrong mode: {}".format(mode))
 
 
 # class EventHandler:
