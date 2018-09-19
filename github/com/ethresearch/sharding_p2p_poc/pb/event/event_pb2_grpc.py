@@ -24,6 +24,11 @@ class EventStub(object):
         request_serializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.GetCollationRequest.SerializeToString,
         response_deserializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.GetCollationResponse.FromString,
         )
+    self.Receive = channel.unary_unary(
+        '/proto.event.Event/Receive',
+        request_serializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.ReceiveRequest.SerializeToString,
+        response_deserializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.ReceiveResponse.FromString,
+        )
 
 
 class EventServicer(object):
@@ -31,13 +36,20 @@ class EventServicer(object):
   pass
 
   def NotifyCollation(self, request, context):
-    """Sends a greeting
-    """
+    # missing associated documentation comment in .proto file
+    pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def GetCollation(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def Receive(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -56,6 +68,11 @@ def add_EventServicer_to_server(servicer, server):
           servicer.GetCollation,
           request_deserializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.GetCollationRequest.FromString,
           response_serializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.GetCollationResponse.SerializeToString,
+      ),
+      'Receive': grpc.unary_unary_rpc_method_handler(
+          servicer.Receive,
+          request_deserializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.ReceiveRequest.FromString,
+          response_serializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_event_dot_event__pb2.ReceiveResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

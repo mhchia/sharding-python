@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='github.com/ethresearch/sharding-p2p-poc/pb/rpc/rpc.proto',
   package='proto.rpc',
   syntax='proto3',
-  serialized_pb=_b('\n8github.com/ethresearch/sharding-p2p-poc/pb/rpc/rpc.proto\x12\tproto.rpc\x1a@github.com/ethresearch/sharding-p2p-poc/pb/message/message.proto\";\n\x11RPCAddPeerRequest\x12\n\n\x02ip\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\x03\x12\x0c\n\x04seed\x18\x03 \x01(\x03\",\n\x18RPCSubscribeShardRequest\x12\x10\n\x08shardIDs\x18\x01 \x03(\x03\".\n\x1aRPCUnsubscribeShardRequest\x12\x10\n\x08shardIDs\x18\x01 \x03(\x03\"\x1e\n\x1cRPCGetSubscribedShardRequest\"]\n\x1cRPCBroadcastCollationRequest\x12\x0f\n\x07shardID\x18\x01 \x01(\x03\x12\x0e\n\x06number\x18\x02 \x01(\x03\x12\x0c\n\x04size\x18\x03 \x01(\x03\x12\x0e\n\x06period\x18\x04 \x01(\x03\"F\n\x17RPCSendCollationRequest\x12+\n\tcollation\x18\x01 \x01(\x0b\x32\x18.proto.message.Collation\"\x16\n\x14RPCStopServerRequest\"k\n\x08Response\x12*\n\x06status\x18\x01 \x01(\x0e\x32\x1a.proto.rpc.Response.Status\x12\x0f\n\x07message\x18\x02 \x01(\t\"\"\n\x06Status\x12\x0b\n\x07SUCCESS\x10\x00\x12\x0b\n\x07\x46\x41ILURE\x10\x01\"9\n\x10RPCPlainResponse\x12%\n\x08response\x18\x01 \x01(\x0b\x32\x13.proto.rpc.Response\"X\n\x1dRPCGetSubscribedShardResponse\x12%\n\x08response\x18\x01 \x01(\x0b\x32\x13.proto.rpc.Response\x12\x10\n\x08shardIDs\x18\x02 \x03(\x03\x32\xe8\x04\n\x03Poc\x12\x46\n\x07\x41\x64\x64Peer\x12\x1c.proto.rpc.RPCAddPeerRequest\x1a\x1b.proto.rpc.RPCPlainResponse\"\x00\x12T\n\x0eSubscribeShard\x12#.proto.rpc.RPCSubscribeShardRequest\x1a\x1b.proto.rpc.RPCPlainResponse\"\x00\x12X\n\x10UnsubscribeShard\x12%.proto.rpc.RPCUnsubscribeShardRequest\x1a\x1b.proto.rpc.RPCPlainResponse\"\x00\x12i\n\x12GetSubscribedShard\x12\'.proto.rpc.RPCGetSubscribedShardRequest\x1a(.proto.rpc.RPCGetSubscribedShardResponse\"\x00\x12\\\n\x12\x42roadcastCollation\x12\'.proto.rpc.RPCBroadcastCollationRequest\x1a\x1b.proto.rpc.RPCPlainResponse\"\x00\x12R\n\rSendCollation\x12\".proto.rpc.RPCSendCollationRequest\x1a\x1b.proto.rpc.RPCPlainResponse\"\x00\x12L\n\nStopServer\x12\x1f.proto.rpc.RPCStopServerRequest\x1a\x1b.proto.rpc.RPCPlainResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n8github.com/ethresearch/sharding-p2p-poc/pb/rpc/rpc.proto\x12\tproto.rpc\x1a@github.com/ethresearch/sharding-p2p-poc/pb/message/message.proto\";\n\x11RPCAddPeerRequest\x12\n\n\x02ip\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\x03\x12\x0c\n\x04seed\x18\x03 \x01(\x03\",\n\x18RPCSubscribeShardRequest\x12\x10\n\x08shardIDs\x18\x01 \x03(\x03\".\n\x1aRPCUnsubscribeShardRequest\x12\x10\n\x08shardIDs\x18\x01 \x03(\x03\"\x1e\n\x1cRPCGetSubscribedShardRequest\"]\n\x1cRPCBroadcastCollationRequest\x12\x0f\n\x07shardID\x18\x01 \x01(\x03\x12\x0e\n\x06number\x18\x02 \x01(\x03\x12\x0c\n\x04size\x18\x03 \x01(\x03\x12\x0e\n\x06period\x18\x04 \x01(\x03\"F\n\x17RPCSendCollationRequest\x12+\n\tcollation\x18\x01 \x01(\x0b\x32\x18.proto.message.Collation\"\x16\n\x14RPCStopServerRequest\"k\n\x08Response\x12*\n\x06status\x18\x01 \x01(\x0e\x32\x1a.proto.rpc.Response.Status\x12\x0f\n\x07message\x18\x02 \x01(\t\"\"\n\x06Status\x12\x0b\n\x07SUCCESS\x10\x00\x12\x0b\n\x07\x46\x41ILURE\x10\x01\"9\n\x10RPCPlainResponse\x12%\n\x08response\x18\x01 \x01(\x0b\x32\x13.proto.rpc.Response\"X\n\x1dRPCGetSubscribedShardResponse\x12%\n\x08response\x18\x01 \x01(\x0b\x32\x13.proto.rpc.Response\x12\x10\n\x08shardIDs\x18\x02 \x03(\x03\"K\n\x0bSendRequest\x12\x0e\n\x06peerID\x18\x01 \x01(\t\x12\r\n\x05topic\x18\x02 \x01(\t\x12\x0f\n\x07msgType\x18\x03 \x01(\x03\x12\x0c\n\x04\x64\x61ta\x18\x04 \x01(\x0c\"C\n\x0cSendResponse\x12%\n\x08response\x18\x01 \x01(\x0b\x32\x13.proto.rpc.Response\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\x32\xa3\x05\n\x03Poc\x12\x46\n\x07\x41\x64\x64Peer\x12\x1c.proto.rpc.RPCAddPeerRequest\x1a\x1b.proto.rpc.RPCPlainResponse\"\x00\x12T\n\x0eSubscribeShard\x12#.proto.rpc.RPCSubscribeShardRequest\x1a\x1b.proto.rpc.RPCPlainResponse\"\x00\x12X\n\x10UnsubscribeShard\x12%.proto.rpc.RPCUnsubscribeShardRequest\x1a\x1b.proto.rpc.RPCPlainResponse\"\x00\x12i\n\x12GetSubscribedShard\x12\'.proto.rpc.RPCGetSubscribedShardRequest\x1a(.proto.rpc.RPCGetSubscribedShardResponse\"\x00\x12\\\n\x12\x42roadcastCollation\x12\'.proto.rpc.RPCBroadcastCollationRequest\x1a\x1b.proto.rpc.RPCPlainResponse\"\x00\x12R\n\rSendCollation\x12\".proto.rpc.RPCSendCollationRequest\x1a\x1b.proto.rpc.RPCPlainResponse\"\x00\x12L\n\nStopServer\x12\x1f.proto.rpc.RPCStopServerRequest\x1a\x1b.proto.rpc.RPCPlainResponse\"\x00\x12\x39\n\x04Send\x12\x16.proto.rpc.SendRequest\x1a\x17.proto.rpc.SendResponse\"\x00\x62\x06proto3')
   ,
   dependencies=[github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_message_dot_message__pb2.DESCRIPTOR,])
 
@@ -394,11 +394,102 @@ _RPCGETSUBSCRIBEDSHARDRESPONSE = _descriptor.Descriptor(
   serialized_end=771,
 )
 
+
+_SENDREQUEST = _descriptor.Descriptor(
+  name='SendRequest',
+  full_name='proto.rpc.SendRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='peerID', full_name='proto.rpc.SendRequest.peerID', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='topic', full_name='proto.rpc.SendRequest.topic', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='msgType', full_name='proto.rpc.SendRequest.msgType', index=2,
+      number=3, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='data', full_name='proto.rpc.SendRequest.data', index=3,
+      number=4, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=773,
+  serialized_end=848,
+)
+
+
+_SENDRESPONSE = _descriptor.Descriptor(
+  name='SendResponse',
+  full_name='proto.rpc.SendResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='response', full_name='proto.rpc.SendResponse.response', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='data', full_name='proto.rpc.SendResponse.data', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=850,
+  serialized_end=917,
+)
+
 _RPCSENDCOLLATIONREQUEST.fields_by_name['collation'].message_type = github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_message_dot_message__pb2._COLLATION
 _RESPONSE.fields_by_name['status'].enum_type = _RESPONSE_STATUS
 _RESPONSE_STATUS.containing_type = _RESPONSE
 _RPCPLAINRESPONSE.fields_by_name['response'].message_type = _RESPONSE
 _RPCGETSUBSCRIBEDSHARDRESPONSE.fields_by_name['response'].message_type = _RESPONSE
+_SENDRESPONSE.fields_by_name['response'].message_type = _RESPONSE
 DESCRIPTOR.message_types_by_name['RPCAddPeerRequest'] = _RPCADDPEERREQUEST
 DESCRIPTOR.message_types_by_name['RPCSubscribeShardRequest'] = _RPCSUBSCRIBESHARDREQUEST
 DESCRIPTOR.message_types_by_name['RPCUnsubscribeShardRequest'] = _RPCUNSUBSCRIBESHARDREQUEST
@@ -409,6 +500,8 @@ DESCRIPTOR.message_types_by_name['RPCStopServerRequest'] = _RPCSTOPSERVERREQUEST
 DESCRIPTOR.message_types_by_name['Response'] = _RESPONSE
 DESCRIPTOR.message_types_by_name['RPCPlainResponse'] = _RPCPLAINRESPONSE
 DESCRIPTOR.message_types_by_name['RPCGetSubscribedShardResponse'] = _RPCGETSUBSCRIBEDSHARDRESPONSE
+DESCRIPTOR.message_types_by_name['SendRequest'] = _SENDREQUEST
+DESCRIPTOR.message_types_by_name['SendResponse'] = _SENDRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 RPCAddPeerRequest = _reflection.GeneratedProtocolMessageType('RPCAddPeerRequest', (_message.Message,), dict(
@@ -481,6 +574,20 @@ RPCGetSubscribedShardResponse = _reflection.GeneratedProtocolMessageType('RPCGet
   ))
 _sym_db.RegisterMessage(RPCGetSubscribedShardResponse)
 
+SendRequest = _reflection.GeneratedProtocolMessageType('SendRequest', (_message.Message,), dict(
+  DESCRIPTOR = _SENDREQUEST,
+  __module__ = 'github.com.ethresearch.sharding_p2p_poc.pb.rpc.rpc_pb2'
+  # @@protoc_insertion_point(class_scope:proto.rpc.SendRequest)
+  ))
+_sym_db.RegisterMessage(SendRequest)
+
+SendResponse = _reflection.GeneratedProtocolMessageType('SendResponse', (_message.Message,), dict(
+  DESCRIPTOR = _SENDRESPONSE,
+  __module__ = 'github.com.ethresearch.sharding_p2p_poc.pb.rpc.rpc_pb2'
+  # @@protoc_insertion_point(class_scope:proto.rpc.SendResponse)
+  ))
+_sym_db.RegisterMessage(SendResponse)
+
 
 
 _POC = _descriptor.ServiceDescriptor(
@@ -489,8 +596,8 @@ _POC = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=774,
-  serialized_end=1390,
+  serialized_start=920,
+  serialized_end=1595,
   methods=[
   _descriptor.MethodDescriptor(
     name='AddPeer',
@@ -553,6 +660,15 @@ _POC = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_RPCSTOPSERVERREQUEST,
     output_type=_RPCPLAINRESPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Send',
+    full_name='proto.rpc.Poc.Send',
+    index=7,
+    containing_service=None,
+    input_type=_SENDREQUEST,
+    output_type=_SENDRESPONSE,
     options=None,
   ),
 ])

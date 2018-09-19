@@ -2,6 +2,7 @@ import functools
 
 import grpc
 
+
 import github.com.ethresearch.sharding_p2p_poc.pb.message.message_pb2 as message_pb2
 import github.com.ethresearch.sharding_p2p_poc.pb.rpc.rpc_pb2 as rpc_pb2
 import github.com.ethresearch.sharding_p2p_poc.pb.rpc.rpc_pb2_grpc as rpc_pb2_grpc
@@ -9,6 +10,11 @@ import github.com.ethresearch.sharding_p2p_poc.pb.rpc.rpc_pb2_grpc as rpc_pb2_gr
 
 REMOTE_IP = "127.0.0.1"
 RPCPORT = 13000
+collation_topic_fmt = "shardCollations_{}"
+
+
+def make_collation_topic(shard_id):
+    return collation_topic_fmt.format(shard_id)
 
 
 class CommandFailure(Exception):
@@ -69,7 +75,7 @@ def throw_if_not_success(response, request):
         )
 
 
-class ShardingP2PController:
+class P2PRPCClient:
     stub = None
 
     def __init__(self, stub):
@@ -133,6 +139,31 @@ class ShardingP2PController:
         throw_if_not_success(response, stopserver_req)
         return response.response.message
 
+    def send(self, peer_id, topic, msg_type, data):
+        '''TODO: define msgType/topic and its corresponding deserializing functions
+        '''
+        req = rpc_pb2.SendRequest(
+            peerID=peer_id,
+            topic=topic,
+            msgType=msg_type,
+            data=data,
+        )
+        response = self.stub.Send(req)
+        throw_if_not_success(response, req)
+        return response.data
+
+
+
+class P2PClient:
+    rpc_client = None
+
+    def __init__(self, rpc_client):
+        self.rpc_client = rpc_client
+
+    def send_collation(self, collation):
+        shard_id = collation.shard_id
+        topic = 1
+        self.rpc_client.send()
 
 def make_grpc_stub():
     dial_addr = "{}:{}".format(REMOTE_IP, RPCPORT)
@@ -140,15 +171,21 @@ def make_grpc_stub():
     return rpc_pb2_grpc.PocStub(channel)
 
 
+a = P2PClient(1)
+import sys
+sys.exit(1)
 stub = make_grpc_stub()
 # stub = MockRPCStub()
-ch = ShardingP2PController(stub)
-print(ch.get_subscribed_shards())
-print(ch.subscribe_shards([40, 56]))  # RPC should fail when subscribing an invalid shard
-print(ch.get_subscribed_shards())
-print(ch.unsubscribe_shards([40]))
-print(ch.get_subscribed_shards())
-print(ch.broadcast_collation(56, 10, 5566, 100))
-print(ch.send_collation(56, 1, b'123'))
+c = P2PRPCClient(stub)
+print(c.get_subscribed_shards())
+print(c.subscribe_shards([40, 56]))  # RPC should fail when subscribing an invalid shard
+print(c.get_subscribed_shards())
+print(c.unsubscribe_shards([40]))
+print(c.get_subscribed_shards())
+print(c.broadcast_collation(56, 10, 5566, 100))
+print(c.send_collation(56, 1, b'123'))
+res = c.send("", make_collation_topic(56), 0, b"")
+print(res)
 # print(ch.stop_server())
+
 

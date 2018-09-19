@@ -57,6 +57,34 @@ class EventServicer(event_pb2_grpc.EventServicer):
         print("GetCollation: request={}, response={}".format(request, getcollation_response))
         return getcollation_response
 
+    def Receive(self, request, context):
+        # ReceiveRequest {
+        #     string peerID = 1;
+        #     string topic = 2;
+        #     int64 msgType = 3;
+        #     bytes data = 4;
+        # }
+        # ReceiveResponse {
+        #     Response response = 1;
+        #     bytes data = 2;
+        # }
+        response = make_response(True)  # Request succeeded
+        collation = message_pb2.Collation(
+            shardID=request.shardID,
+            period=request.period,
+            blobs="getcollation: shardID={}, period={}".format(
+                request.shardID,
+                request.period,
+            ).encode(),
+        )
+        getcollation_response = event_pb2.GetCollationResponse(
+            response=response,
+            collation=collation,
+            isFound=True,
+        )
+        print("GetCollation: request={}, response={}".format(request, getcollation_response))
+        return getcollation_response
+
 
 def run_event_servicer():
     # TODO: should confirm how many workers to use

@@ -49,6 +49,11 @@ class PocStub(object):
         request_serializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_rpc_dot_rpc__pb2.RPCStopServerRequest.SerializeToString,
         response_deserializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_rpc_dot_rpc__pb2.RPCPlainResponse.FromString,
         )
+    self.Send = channel.unary_unary(
+        '/proto.rpc.Poc/Send',
+        request_serializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_rpc_dot_rpc__pb2.SendRequest.SerializeToString,
+        response_deserializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_rpc_dot_rpc__pb2.SendResponse.FromString,
+        )
 
 
 class PocServicer(object):
@@ -56,8 +61,8 @@ class PocServicer(object):
   pass
 
   def AddPeer(self, request, context):
-    """Sends a greeting
-    """
+    # missing associated documentation comment in .proto file
+    pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
@@ -104,6 +109,13 @@ class PocServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def Send(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_PocServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -141,6 +153,11 @@ def add_PocServicer_to_server(servicer, server):
           servicer.StopServer,
           request_deserializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_rpc_dot_rpc__pb2.RPCStopServerRequest.FromString,
           response_serializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_rpc_dot_rpc__pb2.RPCPlainResponse.SerializeToString,
+      ),
+      'Send': grpc.unary_unary_rpc_method_handler(
+          servicer.Send,
+          request_deserializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_rpc_dot_rpc__pb2.SendRequest.FromString,
+          response_serializer=github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_rpc_dot_rpc__pb2.SendResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

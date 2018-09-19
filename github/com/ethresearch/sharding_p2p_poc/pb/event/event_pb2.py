@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='github.com/ethresearch/sharding-p2p-poc/pb/event/event.proto',
   package='proto.event',
   syntax='proto3',
-  serialized_pb=_b('\n<github.com/ethresearch/sharding-p2p-poc/pb/event/event.proto\x12\x0bproto.event\x1a@github.com/ethresearch/sharding-p2p-poc/pb/message/message.proto\"\t\n\x07MetaMsg\"l\n\x16NotifyCollationRequest\x12%\n\x07metaMsg\x18\x01 \x01(\x0b\x32\x14.proto.event.MetaMsg\x12+\n\tcollation\x18\x02 \x01(\x0b\x32\x18.proto.message.Collation\"S\n\x17NotifyCollationResponse\x12\'\n\x08response\x18\x01 \x01(\x0b\x32\x15.proto.event.Response\x12\x0f\n\x07isValid\x18\x02 \x01(\x08\"k\n\x13GetCollationRequest\x12%\n\x07metaMsg\x18\x01 \x01(\x0b\x32\x14.proto.event.MetaMsg\x12\x0f\n\x07shardID\x18\x02 \x01(\x03\x12\x0e\n\x06period\x18\x03 \x01(\x03\x12\x0c\n\x04hash\x18\x04 \x01(\t\"}\n\x14GetCollationResponse\x12\'\n\x08response\x18\x01 \x01(\x0b\x32\x15.proto.event.Response\x12\x0f\n\x07isFound\x18\x02 \x01(\x08\x12+\n\tcollation\x18\x03 \x01(\x0b\x32\x18.proto.message.Collation\"\\\n\x08Response\x12,\n\x06status\x18\x01 \x01(\x0e\x32\x1c.proto.event.Response.Status\"\"\n\x06Status\x12\x0b\n\x07SUCCESS\x10\x00\x12\x0b\n\x07\x46\x41ILURE\x10\x01\x32\xbe\x01\n\x05\x45vent\x12^\n\x0fNotifyCollation\x12#.proto.event.NotifyCollationRequest\x1a$.proto.event.NotifyCollationResponse\"\x00\x12U\n\x0cGetCollation\x12 .proto.event.GetCollationRequest\x1a!.proto.event.GetCollationResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n<github.com/ethresearch/sharding-p2p-poc/pb/event/event.proto\x12\x0bproto.event\x1a@github.com/ethresearch/sharding-p2p-poc/pb/message/message.proto\"\t\n\x07MetaMsg\"l\n\x16NotifyCollationRequest\x12%\n\x07metaMsg\x18\x01 \x01(\x0b\x32\x14.proto.event.MetaMsg\x12+\n\tcollation\x18\x02 \x01(\x0b\x32\x18.proto.message.Collation\"S\n\x17NotifyCollationResponse\x12\'\n\x08response\x18\x01 \x01(\x0b\x32\x15.proto.event.Response\x12\x0f\n\x07isValid\x18\x02 \x01(\x08\"k\n\x13GetCollationRequest\x12%\n\x07metaMsg\x18\x01 \x01(\x0b\x32\x14.proto.event.MetaMsg\x12\x0f\n\x07shardID\x18\x02 \x01(\x03\x12\x0e\n\x06period\x18\x03 \x01(\x03\x12\x0c\n\x04hash\x18\x04 \x01(\t\"l\n\x14GetCollationResponse\x12\'\n\x08response\x18\x01 \x01(\x0b\x32\x15.proto.event.Response\x12+\n\tcollation\x18\x03 \x01(\x0b\x32\x18.proto.message.Collation\"m\n\x08Response\x12,\n\x06status\x18\x01 \x01(\x0e\x32\x1c.proto.event.Response.Status\x12\x0f\n\x07message\x18\x02 \x01(\t\"\"\n\x06Status\x12\x0b\n\x07SUCCESS\x10\x00\x12\x0b\n\x07\x46\x41ILURE\x10\x01\"N\n\x0eReceiveRequest\x12\x0e\n\x06peerID\x18\x01 \x01(\t\x12\r\n\x05topic\x18\x02 \x01(\t\x12\x0f\n\x07msgType\x18\x03 \x01(\x03\x12\x0c\n\x04\x64\x61ta\x18\x04 \x01(\x0c\"H\n\x0fReceiveResponse\x12\'\n\x08response\x18\x01 \x01(\x0b\x32\x15.proto.event.Response\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\x32\x86\x02\n\x05\x45vent\x12^\n\x0fNotifyCollation\x12#.proto.event.NotifyCollationRequest\x1a$.proto.event.NotifyCollationResponse\"\x00\x12U\n\x0cGetCollation\x12 .proto.event.GetCollationRequest\x1a!.proto.event.GetCollationResponse\"\x00\x12\x46\n\x07Receive\x12\x1b.proto.event.ReceiveRequest\x1a\x1c.proto.event.ReceiveResponse\"\x00\x62\x06proto3')
   ,
   dependencies=[github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_message_dot_message__pb2.DESCRIPTOR,])
 
@@ -216,14 +216,7 @@ _GETCOLLATIONRESPONSE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='isFound', full_name='proto.event.GetCollationResponse.isFound', index=1,
-      number=2, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='collation', full_name='proto.event.GetCollationResponse.collation', index=2,
+      name='collation', full_name='proto.event.GetCollationResponse.collation', index=1,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -242,7 +235,7 @@ _GETCOLLATIONRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=458,
-  serialized_end=583,
+  serialized_end=566,
 )
 
 
@@ -260,6 +253,13 @@ _RESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='message', full_name='proto.event.Response.message', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -273,8 +273,98 @@ _RESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=585,
+  serialized_start=568,
   serialized_end=677,
+)
+
+
+_RECEIVEREQUEST = _descriptor.Descriptor(
+  name='ReceiveRequest',
+  full_name='proto.event.ReceiveRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='peerID', full_name='proto.event.ReceiveRequest.peerID', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='topic', full_name='proto.event.ReceiveRequest.topic', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='msgType', full_name='proto.event.ReceiveRequest.msgType', index=2,
+      number=3, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='data', full_name='proto.event.ReceiveRequest.data', index=3,
+      number=4, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=679,
+  serialized_end=757,
+)
+
+
+_RECEIVERESPONSE = _descriptor.Descriptor(
+  name='ReceiveResponse',
+  full_name='proto.event.ReceiveResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='response', full_name='proto.event.ReceiveResponse.response', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='data', full_name='proto.event.ReceiveResponse.data', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=759,
+  serialized_end=831,
 )
 
 _NOTIFYCOLLATIONREQUEST.fields_by_name['metaMsg'].message_type = _METAMSG
@@ -285,12 +375,15 @@ _GETCOLLATIONRESPONSE.fields_by_name['response'].message_type = _RESPONSE
 _GETCOLLATIONRESPONSE.fields_by_name['collation'].message_type = github_dot_com_dot_ethresearch_dot_sharding__p2p__poc_dot_pb_dot_message_dot_message__pb2._COLLATION
 _RESPONSE.fields_by_name['status'].enum_type = _RESPONSE_STATUS
 _RESPONSE_STATUS.containing_type = _RESPONSE
+_RECEIVERESPONSE.fields_by_name['response'].message_type = _RESPONSE
 DESCRIPTOR.message_types_by_name['MetaMsg'] = _METAMSG
 DESCRIPTOR.message_types_by_name['NotifyCollationRequest'] = _NOTIFYCOLLATIONREQUEST
 DESCRIPTOR.message_types_by_name['NotifyCollationResponse'] = _NOTIFYCOLLATIONRESPONSE
 DESCRIPTOR.message_types_by_name['GetCollationRequest'] = _GETCOLLATIONREQUEST
 DESCRIPTOR.message_types_by_name['GetCollationResponse'] = _GETCOLLATIONRESPONSE
 DESCRIPTOR.message_types_by_name['Response'] = _RESPONSE
+DESCRIPTOR.message_types_by_name['ReceiveRequest'] = _RECEIVEREQUEST
+DESCRIPTOR.message_types_by_name['ReceiveResponse'] = _RECEIVERESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 MetaMsg = _reflection.GeneratedProtocolMessageType('MetaMsg', (_message.Message,), dict(
@@ -335,6 +428,20 @@ Response = _reflection.GeneratedProtocolMessageType('Response', (_message.Messag
   ))
 _sym_db.RegisterMessage(Response)
 
+ReceiveRequest = _reflection.GeneratedProtocolMessageType('ReceiveRequest', (_message.Message,), dict(
+  DESCRIPTOR = _RECEIVEREQUEST,
+  __module__ = 'github.com.ethresearch.sharding_p2p_poc.pb.event.event_pb2'
+  # @@protoc_insertion_point(class_scope:proto.event.ReceiveRequest)
+  ))
+_sym_db.RegisterMessage(ReceiveRequest)
+
+ReceiveResponse = _reflection.GeneratedProtocolMessageType('ReceiveResponse', (_message.Message,), dict(
+  DESCRIPTOR = _RECEIVERESPONSE,
+  __module__ = 'github.com.ethresearch.sharding_p2p_poc.pb.event.event_pb2'
+  # @@protoc_insertion_point(class_scope:proto.event.ReceiveResponse)
+  ))
+_sym_db.RegisterMessage(ReceiveResponse)
+
 
 
 _EVENT = _descriptor.ServiceDescriptor(
@@ -343,8 +450,8 @@ _EVENT = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=680,
-  serialized_end=870,
+  serialized_start=834,
+  serialized_end=1096,
   methods=[
   _descriptor.MethodDescriptor(
     name='NotifyCollation',
@@ -362,6 +469,15 @@ _EVENT = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_GETCOLLATIONREQUEST,
     output_type=_GETCOLLATIONRESPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Receive',
+    full_name='proto.event.Event.Receive',
+    index=2,
+    containing_service=None,
+    input_type=_RECEIVEREQUEST,
+    output_type=_RECEIVERESPONSE,
     options=None,
   ),
 ])
