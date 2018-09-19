@@ -169,8 +169,8 @@ class P2PClient:
     def __init__(self, rpc_client):
         self.rpc_client = rpc_client
 
-    def _send(self, topic, data):
-        return self.rpc_client.send(UNKNOWN_PID, topic, MsgType.UNKNOWN, data)
+    def _send(self, topic, msg_type, data):
+        return self.rpc_client.send(UNKNOWN_PID, topic, msg_type, data)
 
     def _request(self, peer_id, msg_type, data):
         return self.rpc_client.send(peer_id, UNKNOWN_TOPIC, msg_type, data)
@@ -178,7 +178,7 @@ class P2PClient:
     def send_collation(self, collation):
         topic = make_collation_topic(collation.shard_id)
         collation_bytes = collation.to_bytes()
-        return self._send(topic, collation_bytes)
+        return self._send(topic, MsgType.COLLATION, collation_bytes)
 
     def request_collation(self, peer_id, shard_id, period, collation_hash):
         req = CollationRequest(shard_id, period, collation_hash)
@@ -209,8 +209,6 @@ peer_id_1 = "QmexAnfpHrhMmAC5UNQVS8iBuUUgDrMbMY17Cck2gKrqeX"
 
 p2p_client = P2PClient(rpc_client)
 collation = Collation(1, 2, b"\xbe\xef")
-print("!@#", p2p_client.send_collation(collation))
-print("!@#", p2p_client.request_collation(peer_id_1, 1, 2, ""))
+print(p2p_client.send_collation(collation))
+print(p2p_client.request_collation(peer_id_1, 1, 2, ""))
 # print(ch.stop_server())
-
-

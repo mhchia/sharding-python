@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='github.com/ethresearch/sharding-p2p-poc/pb/message/message.proto',
   package='proto.message',
   syntax='proto3',
-  serialized_pb=_b('\n@github.com/ethresearch/sharding-p2p-poc/pb/message/message.proto\x12\rproto.message\"o\n\x08Response\x12.\n\x06status\x18\x01 \x01(\x0e\x32\x1e.proto.message.Response.Status\x12\x0f\n\x07message\x18\x02 \x01(\t\"\"\n\x06Status\x12\x0b\n\x07SUCCESS\x10\x00\x12\x0b\n\x07\x46\x41ILURE\x10\x01\"!\n\x0e\x41\x64\x64PeerRequest\x12\x0f\n\x07message\x18\x01 \x01(\t\"<\n\x0f\x41\x64\x64PeerResponse\x12)\n\x08response\x18\x01 \x01(\x0b\x32\x17.proto.message.Response\";\n\tCollation\x12\x0f\n\x07shardID\x18\x01 \x01(\x03\x12\x0e\n\x06period\x18\x02 \x01(\x03\x12\r\n\x05\x62lobs\x18\x03 \x01(\x0c\"A\n\x10\x43ollationRequest\x12\x0f\n\x07shardID\x18\x01 \x01(\x03\x12\x0e\n\x06period\x18\x02 \x01(\x03\x12\x0c\n\x04hash\x18\x03 \x01(\t\"k\n\x11\x43ollationResponse\x12)\n\x08response\x18\x01 \x01(\x0b\x32\x17.proto.message.Response\x12+\n\tcollation\x18\x02 \x01(\x0b\x32\x18.proto.message.Collation\"$\n\x10ShardPeerRequest\x12\x10\n\x08shardIDs\x18\x01 \x03(\x03\"\xf7\x01\n\x11ShardPeerResponse\x12)\n\x08response\x18\x01 \x01(\x0b\x32\x17.proto.message.Response\x12\x44\n\nshardPeers\x18\x02 \x03(\x0b\x32\x30.proto.message.ShardPeerResponse.ShardPeersEntry\x1a\x16\n\x05Peers\x12\r\n\x05peers\x18\x01 \x03(\t\x1aY\n\x0fShardPeersEntry\x12\x0b\n\x03key\x18\x01 \x01(\x03\x12\x35\n\x05value\x18\x02 \x01(\x0b\x32&.proto.message.ShardPeerResponse.Peers:\x02\x38\x01\"\'\n\x13NotifyShardsRequest\x12\x10\n\x08shardIDs\x18\x01 \x03(\x03\"/\n\x0eGeneralRequest\x12\x0f\n\x07msgType\x18\x01 \x01(\x03\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\"\x1f\n\x0fGeneralResponse\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\x62\x06proto3')
+  serialized_pb=_b('\n@github.com/ethresearch/sharding-p2p-poc/pb/message/message.proto\x12\rproto.message\"o\n\x08Response\x12.\n\x06status\x18\x01 \x01(\x0e\x32\x1e.proto.message.Response.Status\x12\x0f\n\x07message\x18\x02 \x01(\t\"\"\n\x06Status\x12\x0b\n\x07SUCCESS\x10\x00\x12\x0b\n\x07\x46\x41ILURE\x10\x01\"!\n\x0e\x41\x64\x64PeerRequest\x12\x0f\n\x07message\x18\x01 \x01(\t\"<\n\x0f\x41\x64\x64PeerResponse\x12)\n\x08response\x18\x01 \x01(\x0b\x32\x17.proto.message.Response\";\n\tCollation\x12\x0f\n\x07shardID\x18\x01 \x01(\x03\x12\x0e\n\x06period\x18\x02 \x01(\x03\x12\r\n\x05\x62lobs\x18\x03 \x01(\x0c\"A\n\x10\x43ollationRequest\x12\x0f\n\x07shardID\x18\x01 \x01(\x03\x12\x0e\n\x06period\x18\x02 \x01(\x03\x12\x0c\n\x04hash\x18\x03 \x01(\t\"k\n\x11\x43ollationResponse\x12)\n\x08response\x18\x01 \x01(\x0b\x32\x17.proto.message.Response\x12+\n\tcollation\x18\x02 \x01(\x0b\x32\x18.proto.message.Collation\"$\n\x10ShardPeerRequest\x12\x10\n\x08shardIDs\x18\x01 \x03(\x03\"\xf7\x01\n\x11ShardPeerResponse\x12)\n\x08response\x18\x01 \x01(\x0b\x32\x17.proto.message.Response\x12\x44\n\nshardPeers\x18\x02 \x03(\x0b\x32\x30.proto.message.ShardPeerResponse.ShardPeersEntry\x1a\x16\n\x05Peers\x12\r\n\x05peers\x18\x01 \x03(\t\x1aY\n\x0fShardPeersEntry\x12\x0b\n\x03key\x18\x01 \x01(\x03\x12\x35\n\x05value\x18\x02 \x01(\x0b\x32&.proto.message.ShardPeerResponse.Peers:\x02\x38\x01\"\'\n\x13NotifyShardsRequest\x12\x10\n\x08shardIDs\x18\x01 \x03(\x03\"/\n\x0eGeneralRequest\x12\x0f\n\x07msgType\x18\x01 \x01(\x03\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\"\x1f\n\x0fGeneralResponse\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\"0\n\x0fMessageWithType\x12\x0f\n\x07msgType\x18\x01 \x01(\x03\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\x62\x06proto3')
 )
 
 
@@ -511,6 +511,44 @@ _GENERALRESPONSE = _descriptor.Descriptor(
   serialized_end=939,
 )
 
+
+_MESSAGEWITHTYPE = _descriptor.Descriptor(
+  name='MessageWithType',
+  full_name='proto.message.MessageWithType',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='msgType', full_name='proto.message.MessageWithType.msgType', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='data', full_name='proto.message.MessageWithType.data', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=941,
+  serialized_end=989,
+)
+
 _RESPONSE.fields_by_name['status'].enum_type = _RESPONSE_STATUS
 _RESPONSE_STATUS.containing_type = _RESPONSE
 _ADDPEERRESPONSE.fields_by_name['response'].message_type = _RESPONSE
@@ -532,6 +570,7 @@ DESCRIPTOR.message_types_by_name['ShardPeerResponse'] = _SHARDPEERRESPONSE
 DESCRIPTOR.message_types_by_name['NotifyShardsRequest'] = _NOTIFYSHARDSREQUEST
 DESCRIPTOR.message_types_by_name['GeneralRequest'] = _GENERALREQUEST
 DESCRIPTOR.message_types_by_name['GeneralResponse'] = _GENERALRESPONSE
+DESCRIPTOR.message_types_by_name['MessageWithType'] = _MESSAGEWITHTYPE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Response = _reflection.GeneratedProtocolMessageType('Response', (_message.Message,), dict(
@@ -626,6 +665,13 @@ GeneralResponse = _reflection.GeneratedProtocolMessageType('GeneralResponse', (_
   # @@protoc_insertion_point(class_scope:proto.message.GeneralResponse)
   ))
 _sym_db.RegisterMessage(GeneralResponse)
+
+MessageWithType = _reflection.GeneratedProtocolMessageType('MessageWithType', (_message.Message,), dict(
+  DESCRIPTOR = _MESSAGEWITHTYPE,
+  __module__ = 'github.com.ethresearch.sharding_p2p_poc.pb.message.message_pb2'
+  # @@protoc_insertion_point(class_scope:proto.message.MessageWithType)
+  ))
+_sym_db.RegisterMessage(MessageWithType)
 
 
 _SHARDPEERRESPONSE_SHARDPEERSENTRY.has_options = True

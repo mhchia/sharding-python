@@ -7,10 +7,12 @@ from constants import (
     INT_BYTES,
 )
 
+
 def int_to_bytes(value):
     if not isinstance(value, int):
         raise ValueError
     return bytes.rjust(int_to_big_endian(value), INT_BYTES, b'\x00')
+
 
 def bytes_to_int(value):
     if not isinstance(value, bytes):
