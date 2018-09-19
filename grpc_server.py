@@ -1,6 +1,4 @@
 from concurrent import futures
-import functools
-import sys
 import time
 
 import grpc
@@ -8,9 +6,6 @@ import grpc
 from config import (
     RPC_SERVER_LISTEN_IP,
     RPC_SERVER_PORT,
-)
-from constants import (
-    UNKNOWN_TOPIC,
 )
 from message import (
     Collation,
@@ -20,7 +15,6 @@ from message import (
 
 import github.com.ethresearch.sharding_p2p_poc.pb.event.event_pb2 as event_pb2
 import github.com.ethresearch.sharding_p2p_poc.pb.event.event_pb2_grpc as event_pb2_grpc
-import github.com.ethresearch.sharding_p2p_poc.pb.message.message_pb2 as message_pb2
 
 
 def make_response(status):
@@ -37,7 +31,7 @@ def handle_new_collation(collation):
 
 
 def handle_collation_request(collation_request):
-    c = Collation(collation_request.shard_id, collation_request.period, b"affa")
+    c = Collation(collation_request.shard_id, collation_request.period, b"fake")
     return c.to_bytes()
 
 
@@ -86,33 +80,5 @@ def run_grpc_server():
         server.stop(0)
 
 
-def make_event_stub():
-    dial_addr = "{}:{}".format(RPC_SERVER_LISTEN_IP, RPC_SERVER_PORT)
-    channel = grpc.insecure_channel(dial_addr)
-    return event_pb2_grpc.EventStub(channel)
-
-
-def send_receive():
-    """Test if `Receive` servicer works
-    """
-    stub = make_event_stub()
-    cr = CollationRequest(1, 2, "")
-    req = event_pb2.ReceiveRequest(
-        peerID="",
-        topic="",
-        msgType=MsgType.CollationRequest,
-        data=cr.to_bytes(),
-    )
-    stub.Receive(req)
-
-
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        raise ValueError("Wrong arguments")
-    mode = sys.argv[1]
-    if mode == "server":
-        run_event_servicer()
-    elif mode == "receive":
-        send_receive()
-    else:
-        raise ValueError("Wrong mode: {}".format(mode))
+    run_grpc_server()

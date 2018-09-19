@@ -23,61 +23,13 @@ import github.com.ethresearch.sharding_p2p_poc.pb.rpc.rpc_pb2 as rpc_pb2
 import github.com.ethresearch.sharding_p2p_poc.pb.rpc.rpc_pb2_grpc as rpc_pb2_grpc
 
 
-def make_collation_topic(shard_id):
-    return COLLATION_TOPIC_FORMAT.format(shard_id)
-
-
-class CommandFailure(Exception):
+class RPCFailure(Exception):
     pass
-
-
-class MockRPCStub:
-    peers = None
-    subscribed_shards = None
-
-    def __init__(self):
-        self.peers = set()
-        self.subscribed_shards = set()
-
-    def _make_empty_success_response(self):
-        response = rpc_pb2.RPCPlainResponse()
-        response.response.status = rpc_pb2.Response.SUCCESS
-        return response
-
-    def AddPeer(self, req):
-        peer_addr = "{}:{}:{}".format(req.ip, req.port, req.seed)
-        self.peers.add(peer_addr)
-        return self._make_empty_success_response()
-
-    def SubscribeShard(self, req):
-        self.subscribed_shards = self.subscribed_shards.union(req.shardIDs)
-        return self._make_empty_success_response()
-
-    def UnsubscribeShard(self, req):
-        self.subscribed_shards.difference_update(req.shardIDs)
-        return self._make_empty_success_response()
-
-    def GetSubscribedShard(self, req):
-        shard_ids = list(self.subscribed_shards)
-        response = rpc_pb2.RPCGetSubscribedShardResponse(
-            shardIDs=shard_ids,
-        )
-        response.response.status = rpc_pb2.Response.SUCCESS
-        return response
-
-    def BroadcastCollation(self, req):
-        return self._make_empty_success_response()
-
-    def SendCollation(self, req):
-        return self._make_empty_success_response()
-
-    def StopServer(self, req):
-        return self._make_empty_success_response()
 
 
 def throw_if_not_success(response, request):
     if response.response.status != rpc_pb2.Response.SUCCESS:
-        raise CommandFailure(
+        raise RPCFailure(
             "response={}, request={}".format(
                 response,
                 request,
@@ -85,7 +37,7 @@ def throw_if_not_success(response, request):
         )
 
 
-class P2PRPCClient:
+class GRPCClient:
     stub = None
 
     def __init__(self, stub):
@@ -178,50 +130,3 @@ class P2PRPCClient:
         response = self.stub.Send(req)
         throw_if_not_success(response, req)
         return response.data
-
-
-class P2PClient:
-    rpc_client = None
-
-    def __init__(self, rpc_client):
-        self.rpc_client = rpc_client
-
-    def broadcast_collation(self, collation):
-        topic = make_collation_topic(collation.shard_id)
-        collation_bytes = collation.to_bytes()
-        self.rpc_client.broadcast(topic, MsgType.Collation, collation_bytes)
-        return True
-
-    def request_collation(self, peer_id, shard_id, period, collation_hash):
-        req = CollationRequest(shard_id, period, collation_hash)
-        req_bytes = req.to_bytes()
-        res_bytes = self.rpc_client.send(peer_id, MsgType.CollationRequest, req_bytes)
-        return Collation.from_bytes(res_bytes)
-
-
-def make_grpc_stub():
-    dial_addr = "{}:{}".format(RPC_CLIENT_IP, RPC_CLIENT_PORT)
-    channel = grpc.insecure_channel(dial_addr)
-    return rpc_pb2_grpc.PocStub(channel)
-
-
-stub = make_grpc_stub()
-rpc_client = P2PRPCClient(stub)
-# print(rpc_client.get_subscribed_shards())
-# print(rpc_client.subscribe_shards([40, 56]))  # RPC should fail when subscribing an invalid shard
-# print(rpc_client.get_subscribed_shards())
-# print(rpc_client.unsubscribe_shards([40]))
-# print(rpc_client.get_subscribed_shards())
-# print(rpc_client.broadcast_collation(56, 10, 5566, 100))
-# print(rpc_client.send_collation(56, 1, b'123'))
-# res = rpc_client.send("", make_collation_topic(56), 0, b"")
-# print(res)
-
-peer_id_0 = "QmS5QmciTXXnCUCyxud5eWFenUMAmvAWSDa1c7dvdXRMZ7"
-peer_id_1 = "QmexAnfpHrhMmAC5UNQVS8iBuUUgDrMbMY17Cck2gKrqeX"
-
-p2p_client = P2PClient(rpc_client)
-collation = Collation(1, 2, b"\xbe\xef")
-print(p2p_client.broadcast_collation(collation))
-print(p2p_client.request_collation(peer_id_1, 1, 2, ""))
-# print(ch.stop_server())
