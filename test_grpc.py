@@ -8,13 +8,9 @@ from config import (
 )
 from constants import (
     COLLATION_TOPIC_FORMAT,
-    UNKNOWN_TOPIC,
 )
 from grpc_client import (
     GRPCClient,
-)
-from grpc_server import (
-    GRPCServer,
 )
 from message import (
     Collation,
@@ -24,7 +20,6 @@ from message import (
 
 import github.com.ethresearch.sharding_p2p_poc.pb.event.event_pb2 as event_pb2
 import github.com.ethresearch.sharding_p2p_poc.pb.event.event_pb2_grpc as event_pb2_grpc
-import github.com.ethresearch.sharding_p2p_poc.pb.message.message_pb2 as message_pb2
 import github.com.ethresearch.sharding_p2p_poc.pb.rpc.rpc_pb2_grpc as rpc_pb2_grpc
 
 
@@ -80,6 +75,26 @@ def make_grpc_stub():
 
 
 def test_grpc_client():
+    """
+    This test is to test whether grpc client works well when
+        - our go node is started
+        - peer's go node is started
+        - peer's python grpc server is started
+    To run this test, please ensure
+        - we have started a grpc_server, by running `python grpc_server.py`
+        - we have started two `sharding-p2p-poc` nodes, one with seed=0, rpcport=13000, and another
+            with seed=1, rpcport=13001
+    Scenario `broadcast`:
+        When we call `grpc_client.broadcast`, it first calls our go node's `pubsub.publish`.
+        Our go node will broadcast the data and return `is_successful`. After the data is relayed
+        to peer's go node, the node will call its python's `grpc_server.receive`, and therefore
+        peer's python side receive the data, and then returns `is_valid` to peer's go node.
+    Scenario `request`:
+        When we call `grpc_client.request`, it first calls our go node's `shardmanager.reuqest`.
+        Our go node will ask peer's go node for the data. Peer's go node will call its
+        python's `grpc_server.receive`, and therefore peer's python side receive the request,
+        parse and handle the request, and then returns the corresponding data.
+    """
     stub = make_grpc_stub()
     rpc_client = GRPCClient(stub)
     rpc_client.subscribe_shards([0, 1])

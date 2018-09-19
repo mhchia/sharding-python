@@ -1,26 +1,10 @@
-import functools
-
-import grpc
-
-from config import (
-    RPC_CLIENT_IP,
-    RPC_CLIENT_PORT,
-)
 from constants import (
-    COLLATION_TOPIC_FORMAT,
     UNKNOWN_PID,
     UNKNOWN_TOPIC,
 )
-from message import (
-    MsgType,
-    Collation,
-    CollationRequest,
-)
-
 
 import github.com.ethresearch.sharding_p2p_poc.pb.message.message_pb2 as message_pb2
 import github.com.ethresearch.sharding_p2p_poc.pb.rpc.rpc_pb2 as rpc_pb2
-import github.com.ethresearch.sharding_p2p_poc.pb.rpc.rpc_pb2_grpc as rpc_pb2_grpc
 
 
 class RPCFailure(Exception):

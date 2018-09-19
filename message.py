@@ -1,5 +1,3 @@
-from enum import Enum
-
 from eth_utils import (
     big_endian_to_int,
     int_to_big_endian,

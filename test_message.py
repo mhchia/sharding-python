@@ -6,6 +6,7 @@ from message import (
     INT_BYTES,
 )
 
+
 def test_collation():
     with pytest.raises(ValueError):
         Collation.from_bytes(b"")
