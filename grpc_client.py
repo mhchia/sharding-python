@@ -8,11 +8,11 @@ from config import (
 )
 from constants import (
     COLLATION_TOPIC_FORMAT,
-    MsgType,
     UNKNOWN_PID,
     UNKNOWN_TOPIC,
 )
 from message import (
+    MsgType,
     Collation,
     CollationRequest,
 )
@@ -91,6 +91,10 @@ class P2PRPCClient:
     def __init__(self, stub):
         self.stub = stub
 
+    #
+    # RPC for CLI usage
+    #
+
     def add_peer(self, ip, port, seed):
         addpeer_req = rpc_pb2.RPCAddPeerRequest(
             ip=ip,
@@ -149,11 +153,24 @@ class P2PRPCClient:
         throw_if_not_success(response, stopserver_req)
         return response.response.message
 
-    def send(self, peer_id, topic, msg_type, data):
-        '''TODO: define msgType/topic and its corresponding deserializing functions
-        '''
+    #
+    # RPC for data transmission
+    #
+
+    def send(self, peer_id, msg_type, data):
         req = rpc_pb2.SendRequest(
             peerID=peer_id,
+            topic=UNKNOWN_TOPIC,
+            msgType=msg_type,
+            data=data,
+        )
+        response = self.stub.Send(req)
+        throw_if_not_success(response, req)
+        return response.data
+
+    def broadcast(self, topic, msg_type, data):
+        req = rpc_pb2.SendRequest(
+            peerID=UNKNOWN_PID,
             topic=topic,
             msgType=msg_type,
             data=data,
@@ -169,21 +186,17 @@ class P2PClient:
     def __init__(self, rpc_client):
         self.rpc_client = rpc_client
 
-    def _send(self, topic, msg_type, data):
-        return self.rpc_client.send(UNKNOWN_PID, topic, msg_type, data)
-
-    def _request(self, peer_id, msg_type, data):
-        return self.rpc_client.send(peer_id, UNKNOWN_TOPIC, msg_type, data)
-
-    def send_collation(self, collation):
+    def broadcast_collation(self, collation):
         topic = make_collation_topic(collation.shard_id)
         collation_bytes = collation.to_bytes()
-        return self._send(topic, MsgType.COLLATION, collation_bytes)
+        self.rpc_client.broadcast(topic, MsgType.Collation, collation_bytes)
+        return True
 
     def request_collation(self, peer_id, shard_id, period, collation_hash):
         req = CollationRequest(shard_id, period, collation_hash)
         req_bytes = req.to_bytes()
-        return self._request(peer_id, MsgType.COLLATION_REQUEST, req_bytes)
+        res_bytes = self.rpc_client.send(peer_id, MsgType.CollationRequest, req_bytes)
+        return Collation.from_bytes(res_bytes)
 
 
 def make_grpc_stub():
@@ -209,6 +222,6 @@ peer_id_1 = "QmexAnfpHrhMmAC5UNQVS8iBuUUgDrMbMY17Cck2gKrqeX"
 
 p2p_client = P2PClient(rpc_client)
 collation = Collation(1, 2, b"\xbe\xef")
-print(p2p_client.send_collation(collation))
+print(p2p_client.broadcast_collation(collation))
 print(p2p_client.request_collation(peer_id_1, 1, 2, ""))
 # print(ch.stop_server())

@@ -1,3 +1,5 @@
+from enum import Enum
+
 from eth_utils import (
     big_endian_to_int,
     int_to_big_endian,
@@ -80,3 +82,10 @@ class CollationRequest(BaseMessage):
             bytes_to_int(b[INT_BYTES:INT_BYTES * 2]),
             b[INT_BYTES * 2:].decode(),
         )
+
+
+# FIXME: use plain class instead of Enum now
+class MsgType:
+    Unknown = -1
+    Collation = 2
+    CollationRequest = 3
