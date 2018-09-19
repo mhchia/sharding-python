@@ -69,21 +69,24 @@ class EventServicer(event_pb2_grpc.EventServicer):
         #     bytes data = 2;
         # }
         response = make_response(True)  # Request succeeded
-        collation = message_pb2.Collation(
-            shardID=request.shardID,
-            period=request.period,
-            blobs="getcollation: shardID={}, period={}".format(
-                request.shardID,
-                request.period,
-            ).encode(),
-        )
-        getcollation_response = event_pb2.GetCollationResponse(
+        if request.peerID == "":
+            ret = self._on_sent(request.topic, request.data)
+        else:
+            ret = self._on_request(request.peerID, request.msgType, request.data)
+        receive_response = event_pb2.ReceiveResponse(
             response=response,
-            collation=collation,
-            isFound=True,
+            data=ret,
         )
-        print("GetCollation: request={}, response={}".format(request, getcollation_response))
-        return getcollation_response
+        print("Receive: request={}, response={}".format(request, receive_response))
+        return receive_response
+
+    def _on_sent(self, topic, data):
+        return b"res on sent"
+
+    def _on_request(self, peer_id, msgType, data):
+        return b"res on request"
+
+
 
 
 def run_event_servicer():
@@ -137,6 +140,19 @@ def send_get_collation():
     stub.GetCollation(getcollation_request)
 
 
+def send_receive():
+    """Test if `Receive` servicer works
+    """
+    stub = make_event_stub()
+    req = event_pb2.ReceiveRequest(
+        peerID="",
+        topic="123",
+        msgType=3,
+        data=b"\xbe\xef",
+    )
+    stub.Receive(req)
+
+
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         raise ValueError("Wrong arguments")
@@ -147,6 +163,8 @@ if __name__ == "__main__":
         send_notify_collation()
     elif mode == "getcollation":
         send_get_collation()
+    elif mode == "receive":
+        send_receive()
     else:
         raise ValueError("Wrong mode: {}".format(mode))
 

@@ -2,6 +2,10 @@ import functools
 
 import grpc
 
+from message import (
+    Collation,
+    CollationRequest,
+)
 
 import github.com.ethresearch.sharding_p2p_poc.pb.message.message_pb2 as message_pb2
 import github.com.ethresearch.sharding_p2p_poc.pb.rpc.rpc_pb2 as rpc_pb2
@@ -10,11 +14,13 @@ import github.com.ethresearch.sharding_p2p_poc.pb.rpc.rpc_pb2_grpc as rpc_pb2_gr
 
 REMOTE_IP = "127.0.0.1"
 RPCPORT = 13000
-collation_topic_fmt = "shardCollations_{}"
+COLLATION_TOPIC_FORMAT = "shardCollations_{}"
+UNKNOWN_PID = ""
+UNKNOWN_TOPIC = ""
 
 
 def make_collation_topic(shard_id):
-    return collation_topic_fmt.format(shard_id)
+    return COLLATION_TOPIC_FORMAT.format(shard_id)
 
 
 class CommandFailure(Exception):
@@ -153,6 +159,12 @@ class P2PRPCClient:
         return response.data
 
 
+# FIXME: use plain class instead of Enum now
+class MsgType:
+    UNKNOWN = -1
+    COLLATION = 2
+    COLLATION_REQUEST = 3
+
 
 class P2PClient:
     rpc_client = None
@@ -160,10 +172,22 @@ class P2PClient:
     def __init__(self, rpc_client):
         self.rpc_client = rpc_client
 
+    def _send(self, topic, data):
+        return self.rpc_client.send(UNKNOWN_PID, topic, MsgType.UNKNOWN, data)
+
+    def _request(self, peer_id, msg_type, data):
+        return self.rpc_client.send(peer_id, UNKNOWN_TOPIC, msg_type, data)
+
     def send_collation(self, collation):
-        shard_id = collation.shard_id
-        topic = 1
-        self.rpc_client.send()
+        topic = make_collation_topic(collation.shard_id)
+        collation_bytes = collation.to_bytes()
+        return self._send(topic, collation_bytes)
+
+    def request_collation(self, peer_id, shard_id, period, collation_hash):
+        req = CollationRequest(shard_id, period, collation_hash)
+        req_bytes = req.to_bytes()
+        return self._request(peer_id, MsgType.COLLATION_REQUEST, req_bytes)
+
 
 def make_grpc_stub():
     dial_addr = "{}:{}".format(REMOTE_IP, RPCPORT)
@@ -171,21 +195,26 @@ def make_grpc_stub():
     return rpc_pb2_grpc.PocStub(channel)
 
 
-a = P2PClient(1)
-import sys
-sys.exit(1)
+
 stub = make_grpc_stub()
-# stub = MockRPCStub()
-c = P2PRPCClient(stub)
-print(c.get_subscribed_shards())
-print(c.subscribe_shards([40, 56]))  # RPC should fail when subscribing an invalid shard
-print(c.get_subscribed_shards())
-print(c.unsubscribe_shards([40]))
-print(c.get_subscribed_shards())
-print(c.broadcast_collation(56, 10, 5566, 100))
-print(c.send_collation(56, 1, b'123'))
-res = c.send("", make_collation_topic(56), 0, b"")
-print(res)
+rpc_client = P2PRPCClient(stub)
+# print(rpc_client.get_subscribed_shards())
+# print(rpc_client.subscribe_shards([40, 56]))  # RPC should fail when subscribing an invalid shard
+# print(rpc_client.get_subscribed_shards())
+# print(rpc_client.unsubscribe_shards([40]))
+# print(rpc_client.get_subscribed_shards())
+# print(rpc_client.broadcast_collation(56, 10, 5566, 100))
+# print(rpc_client.send_collation(56, 1, b'123'))
+# res = rpc_client.send("", make_collation_topic(56), 0, b"")
+# print(res)
+
+peer_id_0 = "QmS5QmciTXXnCUCyxud5eWFenUMAmvAWSDa1c7dvdXRMZ7"
+peer_id_1 = "QmexAnfpHrhMmAC5UNQVS8iBuUUgDrMbMY17Cck2gKrqeX"
+
+p2p_client = P2PClient(rpc_client)
+collation = Collation(1, 2, b"\xbe\xef")
+print("!@#", p2p_client.send_collation(collation))
+# print("!@#", p2p_client.request_collation(peer_id_1, 1, 2, ""))
 # print(ch.stop_server())
 
 
