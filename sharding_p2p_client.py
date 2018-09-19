@@ -2,21 +2,25 @@ import functools
 
 import grpc
 
+from config import (
+    RPC_CLIENT_IP,
+    RPC_CLIENT_PORT,
+)
+from constants import (
+    COLLATION_TOPIC_FORMAT,
+    MsgType,
+    UNKNOWN_PID,
+    UNKNOWN_TOPIC,
+)
 from message import (
     Collation,
     CollationRequest,
 )
 
+
 import github.com.ethresearch.sharding_p2p_poc.pb.message.message_pb2 as message_pb2
 import github.com.ethresearch.sharding_p2p_poc.pb.rpc.rpc_pb2 as rpc_pb2
 import github.com.ethresearch.sharding_p2p_poc.pb.rpc.rpc_pb2_grpc as rpc_pb2_grpc
-
-
-REMOTE_IP = "127.0.0.1"
-RPCPORT = 13000
-COLLATION_TOPIC_FORMAT = "shardCollations_{}"
-UNKNOWN_PID = ""
-UNKNOWN_TOPIC = ""
 
 
 def make_collation_topic(shard_id):
@@ -159,13 +163,6 @@ class P2PRPCClient:
         return response.data
 
 
-# FIXME: use plain class instead of Enum now
-class MsgType:
-    UNKNOWN = -1
-    COLLATION = 2
-    COLLATION_REQUEST = 3
-
-
 class P2PClient:
     rpc_client = None
 
@@ -190,10 +187,9 @@ class P2PClient:
 
 
 def make_grpc_stub():
-    dial_addr = "{}:{}".format(REMOTE_IP, RPCPORT)
+    dial_addr = "{}:{}".format(RPC_CLIENT_IP, RPC_CLIENT_PORT)
     channel = grpc.insecure_channel(dial_addr)
     return rpc_pb2_grpc.PocStub(channel)
-
 
 
 stub = make_grpc_stub()
@@ -214,7 +210,7 @@ peer_id_1 = "QmexAnfpHrhMmAC5UNQVS8iBuUUgDrMbMY17Cck2gKrqeX"
 p2p_client = P2PClient(rpc_client)
 collation = Collation(1, 2, b"\xbe\xef")
 print("!@#", p2p_client.send_collation(collation))
-# print("!@#", p2p_client.request_collation(peer_id_1, 1, 2, ""))
+print("!@#", p2p_client.request_collation(peer_id_1, 1, 2, ""))
 # print(ch.stop_server())
 
 

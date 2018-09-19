@@ -5,14 +5,17 @@ import time
 
 import grpc
 
+from config import (
+    RPC_SERVER_LISTEN_IP,
+    RPC_SERVER_PORT,
+)
+from constants import (
+    UNKNOWN_TOPIC,
+)
+
 import github.com.ethresearch.sharding_p2p_poc.pb.event.event_pb2 as event_pb2
 import github.com.ethresearch.sharding_p2p_poc.pb.event.event_pb2_grpc as event_pb2_grpc
 import github.com.ethresearch.sharding_p2p_poc.pb.message.message_pb2 as message_pb2
-
-
-LISTEN_IP = "127.0.0.1"
-REMOTE_IP = "127.0.0.1"
-EVENT_RPC_PORT = 35566
 
 
 def make_response(status):
@@ -69,7 +72,7 @@ class EventServicer(event_pb2_grpc.EventServicer):
         #     bytes data = 2;
         # }
         response = make_response(True)  # Request succeeded
-        if request.peerID == "":
+        if request.topic != UNKNOWN_TOPIC:
             ret = self._on_sent(request.topic, request.data)
         else:
             ret = self._on_request(request.peerID, request.msgType, request.data)
@@ -87,8 +90,6 @@ class EventServicer(event_pb2_grpc.EventServicer):
         return b"res on request"
 
 
-
-
 def run_event_servicer():
     # TODO: should confirm how many workers to use
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
@@ -96,7 +97,7 @@ def run_event_servicer():
         EventServicer(),
         server,
     )
-    listen_addr = '{}:{}'.format(REMOTE_IP, EVENT_RPC_PORT)
+    listen_addr = '{}:{}'.format(RPC_SERVER_LISTEN_IP, RPC_SERVER_PORT)
     server.add_insecure_port(listen_addr)
     server.start()
     print("Server started")
@@ -108,7 +109,7 @@ def run_event_servicer():
 
 
 def make_event_stub():
-    dial_addr = "{}:{}".format(REMOTE_IP, EVENT_RPC_PORT)
+    dial_addr = "{}:{}".format(RPC_SERVER_LISTEN_IP, RPC_SERVER_PORT)
     channel = grpc.insecure_channel(dial_addr)
     return event_pb2_grpc.EventStub(channel)
 
@@ -167,21 +168,3 @@ if __name__ == "__main__":
         send_receive()
     else:
         raise ValueError("Wrong mode: {}".format(mode))
-
-
-# class EventHandler:
-
-#     def __init__(self):
-#         pass
-
-#     def listen(self):
-#         pass
-
-#     def register(self, handler_func):
-#         pass
-
-#     def HandleNewCollation(self, msg):
-#         pass
-
-#     def HandleNewTransaction(self, msg):
-#         pass

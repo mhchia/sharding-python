@@ -3,8 +3,9 @@ from eth_utils import (
     int_to_big_endian,
 )
 
-INT_BYTES = 32
-
+from constants import (
+    INT_BYTES,
+)
 
 def int_to_bytes(value):
     if not isinstance(value, int):
